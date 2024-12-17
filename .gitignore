@@ -1,0 +1,7 @@
+data
+__pycache__
+*.npy
+*.csv
+*.json
+*.png
+.ipynb_checkpoints
