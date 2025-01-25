@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import commons as cm
+import utils as ut
 
 CHART_SIZE = (18, 12)
 
@@ -10,7 +10,7 @@ spx_prices.plot(figsize=(CHART_SIZE), color='black')
 
 spx_prices.loc['2008'].plot(figsize=(CHART_SIZE), color='black')
 
-spx_prices['SPX_MA'] = cm.calculate_moving_average(spx_prices['SPX'], window=40)
+spx_prices['SPX_MA'] = ut.calculate_moving_average(spx_prices['SPX'], window=40)
 spx_prices.bfill(inplace=True)
 
 spx_prices['SPX'].plot(figsize=(CHART_SIZE), linestyle='--', color='black', legend='SPX')
@@ -19,7 +19,7 @@ spx_prices['SPX_MA'].plot(figsize=(CHART_SIZE), linestyle='-', color='grey', leg
 spx_prices['SPX']['2008'].plot(figsize=(CHART_SIZE), linestyle='--', color='black', legend='SPX')
 spx_prices['SPX_MA']['2008'].plot(figsize=(CHART_SIZE), linestyle='-', color='grey', legend='SPX_MA')
 
-spx_prices['SPX_STDDEV'] = cm.calculate_standard_deviation(spx_prices['SPX'], window=40)
+spx_prices['SPX_STDDEV'] = ut.calculate_standard_deviation(spx_prices['SPX'], window=40)
 
 spx_prices.bfill(inplace=True)
 

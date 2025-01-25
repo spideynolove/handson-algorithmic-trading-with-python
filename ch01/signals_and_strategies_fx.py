@@ -1,5 +1,5 @@
 import pandas as pd
-import commons as cm
+import utils as ut
 
 df = pd.read_csv('../data/EURUSD1440.csv',
                  names=['Date', 'Open', 'High', 'Low', 'Close', 'Volume'],
@@ -10,12 +10,12 @@ df.set_index('Date', inplace=True)
 initial_capital = 10000.0
 risk_percentage = 5
 
-df['MA'] = cm.calculate_moving_average(df['Close'], window=20)
-df['STDDEV'] = cm.calculate_standard_deviation(df['Close'], window=20)
+df['MA'] = ut.calculate_moving_average(df['Close'], window=20)
+df['STDDEV'] = ut.calculate_standard_deviation(df['Close'], window=20)
 df['UPPER_BAND'] = df['MA'] + (2 * df['STDDEV'])
 df['LOWER_BAND'] = df['MA'] - (2 * df['STDDEV'])
 
-df['RSI'] = cm.calculate_rsi(df['Close'])
+df['RSI'] = ut.calculate_rsi(df['Close'])
 
 df['BUYS'] = (df['Close'] < df['LOWER_BAND']) & (df['RSI'] < 30)
 df['SELLS'] = (df['Close'] > df['UPPER_BAND']) & (df['RSI'] > 70)
@@ -82,8 +82,8 @@ print(f"Average daily PnL: ${avg_daily_pnl:.6f}")
 print(f"Std daily PnL: ${std_daily_pnl:.6f}")
 
 if std_daily_pnl > 0:
-    sharpe_ratio = cm.calculate_sharpe_ratio(daily_pnl_series)
-    annualized_sharpe_ratio = cm.calculate_annualized_sharpe_ratio(
+    sharpe_ratio = ut.calculate_sharpe_ratio(daily_pnl_series)
+    annualized_sharpe_ratio = ut.calculate_annualized_sharpe_ratio(
         sharpe_ratio)
     print(f'Sharpe Ratio: {sharpe_ratio:.4f}')
     print(f'Annualized Sharpe Ratio: {annualized_sharpe_ratio:.4f}')

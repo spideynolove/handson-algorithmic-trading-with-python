@@ -31,3 +31,17 @@ def calculate_moving_average(data, window=20):
 def calculate_standard_deviation(data, window=20):
     std = data.rolling(window=window).std()
     return std
+
+def calculate_daily_pnl(returns):
+    daily_pnl = returns.diff().dropna()
+    return daily_pnl
+
+def calculate_trade_pnl(position, returns, position_size):
+    trade_pnl = position * position_size * returns
+    return trade_pnl
+
+def calculate_max_drawdown(balance):
+    peak = balance.cummax()
+    drawdown = (balance - peak) / peak
+    max_drawdown = drawdown.min()
+    return max_drawdown

@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import commons as cm
+import utils as ut
 
 df = pd.read_csv('../data/EURUSD1440.csv', 
                  names=['Date', 'Open', 'High', 'Low', 'Close', 'Volume'], 
@@ -21,7 +21,7 @@ df['Strategy_Returns'] = df['Strategy_Returns'].fillna(0)
 df['Cumulative_Returns'] = df['Strategy_Returns'].cumsum()
 df['PnL'] = initial_capital * (1 + df['Cumulative_Returns'])
 
-df['PnLStdev'] = cm.calculate_standard_deviation(df['PnL'], window=20)
+df['PnLStdev'] = ut.calculate_standard_deviation(df['PnL'], window=20)
 
 print("First few rows of final dataframe:")
 print(df[['Position', 'Returns', 'Strategy_Returns', 'PnL']].head())
@@ -38,8 +38,8 @@ print(f"Std daily PnL: {std_daily_pnl:.2f}")
 if std_daily_pnl == 0 or pd.isna(std_daily_pnl):
     print('Error: Standard deviation is zero or NaN')
 else:
-    sharpe_ratio = cm.calculate_sharpe_ratio(daily_pnl_series)
-    annualized_sharpe_ratio = cm.calculate_annualized_sharpe_ratio(sharpe_ratio)
+    sharpe_ratio = ut.calculate_sharpe_ratio(daily_pnl_series)
+    annualized_sharpe_ratio = ut.calculate_annualized_sharpe_ratio(sharpe_ratio)
     print('Sharpe Ratio: {:.4f}'.format(sharpe_ratio))
     print('Annualized Sharpe Ratio: {:.4f}'.format(annualized_sharpe_ratio))
 

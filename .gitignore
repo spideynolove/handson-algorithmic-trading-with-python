@@ -5,3 +5,6 @@ __pycache__
 *.json
 *.png
 .ipynb_checkpoints
+
+.aider*
+.env

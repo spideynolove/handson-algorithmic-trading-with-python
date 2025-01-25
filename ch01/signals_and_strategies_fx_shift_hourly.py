@@ -1,4 +1,4 @@
-import commons as cm
+import utils as ut
 import pandas as pd
 import numpy as np
 
@@ -13,13 +13,13 @@ risk_percentage = 0.03
 leverage = 100
 shift = -1
 
-df['MA'] = cm.calculate_moving_average(df['Close'], window=12).shift(shift)
-df['STDDEV'] = cm.calculate_standard_deviation(
+df['MA'] = ut.calculate_moving_average(df['Close'], window=12).shift(shift)
+df['STDDEV'] = ut.calculate_standard_deviation(
     df['Close'], window=12).shift(shift)
 df['UPPER_BAND'] = df['MA'] + (2 * df['STDDEV'])
 df['LOWER_BAND'] = df['MA'] - (2 * df['STDDEV'])
 
-df['RSI'] = cm.calculate_rsi(df['Close'], periods=8).shift(shift)
+df['RSI'] = ut.calculate_rsi(df['Close'], periods=8).shift(shift)
 
 df['BUYS'] = (df['Close'] < df['LOWER_BAND']) & (df['RSI'] < 25)
 df['SELLS'] = (df['Close'] > df['UPPER_BAND']) & (df['RSI'] > 75)
